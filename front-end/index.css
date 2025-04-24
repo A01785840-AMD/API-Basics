@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #1e1f2a;
+    color: aliceblue;
+}
+
+h1 {
+    font: 800 1rem / 1.5em Georgia, serif;
+}
+
+h2 {
+    font: 800 0.85rem / 1.5em Georgia, serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #2a2b36;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#test-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+#test-selector div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#endpoint-selector-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+}
+
+select, button, input {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    background: #3a3b46;
+    color: aliceblue;
+    border: 1px solid #4a4b56;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input:focus, button:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(138, 180, 248, 0.5);
+    border-color: #6a8caf;
+}
+
+input {
+    width: auto;
+    min-width: 100px;
+    max-width: 200px;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+input:hover {
+    background: #414250;
+    border-color: #5a5b66;
+}
+
+button:hover {
+    background: #4a4b56;
+}
+
+button:active {
+    background: #5c5e6c;
+}
+
+#results-container {
+    min-height: 200px;
+    padding: 1rem;
+    background: #3a3b46;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    position: relative;
+}
+
+#results-msg {
+    position: absolute;
+
+    bottom: 10px;
+    right: 10px;
+}
+
+#results-msg.successful {
+    color: #4ade80;
+}
+
+#results-msg.fail {
+    color: #f87171;
+}
+
+.form-container {
+    background: #2e2f3b;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.form-container h2 {
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 0.75rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #c0c0d0;
+    font-size: 0.9rem;
+}
+
+#data-form input {
+    width: 100%;
+    max-width: none;
+    text-align: left;
+}

@@ -1,0 +1,30 @@
+{
+  "author": "Angel Montemayor Davila",
+  "name": "api-basics",
+  "version": "1.0.0",
+  "description": "Basic api activity",
+  "keywords": [
+    "api",
+    "express",
+    "web dev"
+  ],
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon main.js",
+    "test": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@school:A01785840-AMD/API-Basics.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

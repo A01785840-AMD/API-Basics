@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>End Points Tests</title>
+    <link type="text/css" rel="stylesheet" href="index.css">
+</head>
+<body>
+<header class="container">
+    <h1>END POINTS TESTS!!</h1>
+</header>
+<main class="container">
+    <section id="test-selector">
+        <div>
+            <select id="endpoint-method-select">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="DELETE">DELETE</option>
+                <option value="PATCH">PATCH</option>
+            </select>
+            <select id="endpoint-url-select">
+                <option value="users">/users</option>
+                <option value="items">/items</option>
+            </select>
+            <input id="endpoint-id-input"></input>
+        </div>
+        <button id="test-btn">TEST</button>
+    </section>
+    <section id="results-container">
+        <div id="results"></div>
+        <p id="results-msg"></p>
+    </section>
+</main>
+<script src="app.js"></script>
+<script src="tests.js"></script>
+</body>
+</html>
