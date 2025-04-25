@@ -15,5 +15,6 @@ router.use('/', express.static(pathFrontEnd));
 //  BACKEND  //
 
 router.post('/items', itemController.post)
+router.get('/items', itemController.get);
 
 export default router;

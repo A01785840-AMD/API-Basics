@@ -152,6 +152,11 @@ async function fetchItems(method, data) {
         case 'POST':
             res = await test_postItems(data);
             break;
+        case 'GET':
+            if (data.id === null) {
+                res = await test_getItems();
+            }
+            break;
     }
 
     return res;
@@ -260,4 +265,4 @@ showDataForm(endpointSelectMethod.value, endpointSelectUrl.value);
 updateIdPlaceholder(endpointSelectUrl.value);
 displayResponse("Select endpoint and click TEST");
 updateResultStatus(false, "No test run yet");
-// updateIds();
+updateIds();
