@@ -149,7 +149,10 @@ async function fetchUsers(method, data) {
 async function fetchItems(method, data) {
     let res = null;
     switch (method) {
-
+        case 'GET':
+            if (data.id !== null) {
+                res = await test_getItemById(data);
+            }
     }
 
     return res;
@@ -167,6 +170,7 @@ async function fetchAndUpdate(method, endpoint, data) {
                 res = await fetchItems(method, data);
                 break;
         }
+
         updateResultStatus(res !== null, "Successful");
     } catch (error) {
         console.error('fetchAndUpdate error:', error);
