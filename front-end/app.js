@@ -162,6 +162,9 @@ async function fetchItems(method, data) {
         case 'PATCH':
             res = await test_patchItem(data.id);
             break;
+        case 'DELETE':
+            res = await test_deleteItem(data.id);
+            break;
     }
 
     return res;
