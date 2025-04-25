@@ -150,6 +150,9 @@ async function fetchUsers(method, data) {
                 res = await test_getUserById(data.id);
             }
             break;
+        case 'PATCH':
+            res = await test_patchUser(data.id, data);
+            break;
     }
 
     return res;

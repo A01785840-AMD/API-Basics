@@ -23,5 +23,6 @@ router.delete('/items/:id', itemController.delete);
 router.post('/users', userController.post);
 router.get('/users', userController.get);
 router.get('/users:id', userController.getById);
+router.patch('/users/:id', userController.patch)
 
 export default router;
