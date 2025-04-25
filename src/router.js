@@ -16,5 +16,6 @@ router.use('/', express.static(pathFrontEnd));
 
 router.post('/items', itemController.post)
 router.get('/items', itemController.get);
+router.get('/items:id', itemController.getById);
 
 export default router;

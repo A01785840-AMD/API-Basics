@@ -32,3 +32,22 @@ async function test_getItems() {
         });
 }
 
+
+
+
+async function test_getItemById(id) {
+    return await fetch(`${API_URL}items/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('HTTP error! Status: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(`[GET] Item ID ${id}:`, data);
+        })
+        .catch(error => {
+            console.error('[ TEST ERROR - GET BY ID ]', error);
+        });
+}
+
