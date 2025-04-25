@@ -159,6 +159,9 @@ async function fetchItems(method, data) {
                 res = await test_getItemById(data);
             }
             break;
+        case 'PATCH':
+            res = await test_patchItem(data.id);
+            break;
     }
 
     return res;
@@ -176,6 +179,7 @@ async function fetchAndUpdate(method, endpoint, data) {
                 res = await fetchItems(method, data);
                 break;
         }
+
         updateResultStatus(res !== null, "Successful");
     } catch (error) {
         console.error('fetchAndUpdate error:', error);
