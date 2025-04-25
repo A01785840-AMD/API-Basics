@@ -21,5 +21,6 @@ router.patch('/items:id', itemController.patch);
 router.delete('/items/:id', itemController.delete);
 
 router.post('/users', userController.post);
+router.get('/users', userController.get);
 
 export default router;

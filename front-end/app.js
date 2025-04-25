@@ -143,6 +143,11 @@ async function fetchUsers(method, data) {
         case 'POST':
             res = await test_postUsers(data);
             break;
+        case 'GET':
+            if (data.id === null) {
+                res = await test_getUsers();
+            }
+            break;
     }
 
     return res;
