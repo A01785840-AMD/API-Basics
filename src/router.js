@@ -14,5 +14,6 @@ router.use('/', express.static(pathFrontEnd));
 
 //  BACKEND  //
 
+router.get('/users', userController.get);
 
 export default router;
