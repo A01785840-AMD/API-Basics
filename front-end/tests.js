@@ -88,3 +88,20 @@ async function test_deleteItem(id) {
             console.error('[ TEST ERROR - DELETE ]', error);
         });
 }
+
+async function test_postUsers(data) {
+    console.log(data);
+    return await fetch(API_URL + 'users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('HTTP error! Status: ' + response.status);
+            return response.json();
+        })
+        .then(result => console.log(result))
+        .catch(error => console.error('[ TEST ERROR ]', error));
+}

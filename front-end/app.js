@@ -140,7 +140,9 @@ async function updateIds() {
 async function fetchUsers(method, data) {
     let res = null;
     switch (method) {
-
+        case 'POST':
+            res = await test_postUsers(data);
+            break;
     }
 
     return res;
