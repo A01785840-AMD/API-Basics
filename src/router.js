@@ -14,5 +14,6 @@ router.use('/', express.static(pathFrontEnd));
 
 //  BACKEND  //
 
+router.delete("/:id", userController.delete);
 
 export default router;
