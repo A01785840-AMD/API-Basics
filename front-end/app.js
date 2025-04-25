@@ -137,72 +137,76 @@ async function updateIds() {
     await fetch('http://localhost:3000/items').then(res => res.json()).then(data => get_ids(data, items_ids));
 }
 
-async function fetchUsers(method, data) {
+async function fetchUsers(method, id, data) {
     let res = null;
     switch (method) {
         case 'POST':
             res = await test_postUsers(data);
             break;
         case 'GET':
-            if (data.id === null) {
+            if (!id) {
                 res = await test_getUsers();
             } else {
-                res = await test_getUserById(data.id);
+                res = await test_getUserById(id);
             }
             break;
         case 'PATCH':
-            res = await test_patchUser(data.id, data);
+            res = await test_patchUser(id, data);
             break;
         case 'DELETE':
-            res = await test_deleteUser(data.id);
+            res = await test_deleteUser(id);
             break;
     }
 
     return res;
 }
 
-async function fetchItems(method, data) {
+async function fetchItems(method, id, data) {
     let res = null;
     switch (method) {
         case 'POST':
             res = await test_postItems(data);
             break;
         case 'GET':
-            if (data.id === null) {
+            if (!id) {
                 res = await test_getItems();
             } else {
-                res = await test_getItemById(data);
+                res = await test_getItemById(id);
             }
             break;
         case 'PATCH':
-            res = await test_patchItem(data.id);
+            res = await test_patchItem(id, data);
             break;
         case 'DELETE':
-            res = await test_deleteItem(data.id);
+            res = await test_deleteItem(id);
             break;
     }
 
     return res;
 }
 
-async function fetchAndUpdate(method, endpoint, data) {
+async function fetchAndUpdate(method, endpoint, id, data) {
     let res = null;
 
+    console.log({id, data})
     try {
         switch (endpoint) {
             case 'users':
-                res = await fetchUsers(method, data);
+                res = await fetchUsers(method, id, data);
                 break;
             case 'items':
-                res = await fetchItems(method, data);
+                res = await fetchItems(method, id, data);
                 break;
         }
 
+        console.log(res);
         updateResultStatus(res !== null, "Successful");
     } catch (error) {
         console.error('fetchAndUpdate error:', error);
         updateResultStatus(false, { message: error.message });
     }
+
+    displayResponse(res);
 }
 
 
@@ -278,7 +282,7 @@ test_btn.addEventListener('click', async function () {
     });
 
     updateResultStatus(true, "Request prepared");
-    await fetchAndUpdate(method, endpoint, merge(id, formData));
+    await fetchAndUpdate(method, endpoint, id, formData);
 });
 
 

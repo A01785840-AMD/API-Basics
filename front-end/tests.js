@@ -17,6 +17,7 @@ async function test_postItems(data) {
         return response.json();
     }).then(result => {
         console.log(result);
+        return result;
     }).catch(error => {
         console.error('[ TEST ERROR ] ', error);
     });
@@ -27,6 +28,7 @@ async function test_getItems() {
         .then(response => response.json())
         .then(data => {
             console.log('[GET] All Items:', data);
+            return data;
         })
         .catch(error => {
             console.error('[ TEST ERROR - GET ]', error);
@@ -43,14 +45,15 @@ async function test_getItemById(id) {
         })
         .then(data => {
             console.log(`[GET] Item ID ${id}:`, data);
+            return data;
         })
         .catch(error => {
             console.error('[ TEST ERROR - GET BY ID ]', error);
         });
 }
 
-async function test_patchItem(data_) {
-    return await fetch(`${API_URL}items/${data_.id}`, {
+async function test_patchItem(id, data_) {
+    return await fetch(`${API_URL}items/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -64,7 +67,8 @@ async function test_patchItem(data_) {
             return response.json();
         })
         .then(data => {
-            console.log(`[PATCH] Item ID ${data_.id}:`, data);
+            console.log(`[PATCH] Item ID ${id}:`, data);
+            return data;
         })
         .catch(error => {
             console.error('[ TEST ERROR - PATCH ]', error);
@@ -83,6 +87,7 @@ async function test_deleteItem(id) {
         })
         .then(data => {
             console.log(`[DELETE] Item ID ${id}:`, data);
+            return data;
         })
         .catch(error => {
             console.error('[ TEST ERROR - DELETE ]', error);
@@ -102,7 +107,10 @@ async function test_postUsers(data) {
             if (!response.ok) throw new Error('HTTP error! Status: ' + response.status);
             return response.json();
         })
-        .then(result => console.log(result))
+        .then(result => {
+            console.log(result);
+            return result;
+        })
         .catch(error => console.error('[ TEST ERROR ]', error));
 }
 
@@ -114,7 +122,10 @@ async function test_getUsers() {
             if (!response.ok) throw new Error('HTTP error! Status: ' + response.status);
             return response.json();
         })
-        .then(result => console.log(result))
+        .then(result => {
+            console.log(result);
+            return result;
+        })
         .catch(error => console.error('[ TEST ERROR ]', error));
 }
 
@@ -127,7 +138,10 @@ async function test_getUserById(id) {
             if (!response.ok) throw new Error('HTTP error! Status: ' + response.status);
             return response.json();
         })
-        .then(result => console.log(result))
+        .then(result => {
+            console.log(result)
+            return result;
+        })
         .catch(error => console.error('[ TEST ERROR ]', error));
 }
 
@@ -146,7 +160,10 @@ async function test_patchUser(id, updateData) {
             if (!response.ok) throw new Error('HTTP error! Status: ' + response.status);
             return response.json();
         })
-        .then(result => console.log(result))
+        .then(result => {
+            console.log(result);
+            return result;
+        })
         .catch(error => console.error('[ TEST ERROR ]', error));
 }
 
@@ -161,7 +178,10 @@ async function test_deleteUser(id) {
             if (!response.ok) throw new Error('HTTP error! Status: ' + response.status);
             return response.json();
         })
-        .then(result => console.log(result))
+        .then(result => {
+            console.log(result);
+            return result;
+        })
         .catch(error => console.error('[ TEST ERROR ]', error));
 }
 
