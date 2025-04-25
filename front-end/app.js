@@ -146,6 +146,8 @@ async function fetchUsers(method, data) {
         case 'GET':
             if (data.id === null) {
                 res = await test_getUsers();
+            } else {
+                res = await test_getUserById(data.id);
             }
             break;
     }

@@ -118,3 +118,16 @@ async function test_getUsers() {
         .catch(error => console.error('[ TEST ERROR ]', error));
 }
 
+
+
+
+async function test_getUserById(id) {
+    return await fetch(`${API_URL}users/${id}`)
+        .then(response => {
+            if (!response.ok) throw new Error('HTTP error! Status: ' + response.status);
+            return response.json();
+        })
+        .then(result => console.log(result))
+        .catch(error => console.error('[ TEST ERROR ]', error));
+}
+
