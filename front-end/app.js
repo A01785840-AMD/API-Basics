@@ -153,6 +153,9 @@ async function fetchUsers(method, data) {
         case 'PATCH':
             res = await test_patchUser(data.id, data);
             break;
+        case 'DELETE':
+            res = await test_deleteUser(data.id);
+            break;
     }
 
     return res;
