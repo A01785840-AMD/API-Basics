@@ -14,5 +14,6 @@ router.use('/', express.static(pathFrontEnd));
 
 //  BACKEND  //
 
+router.patch('/items:id', itemController.patch);
 
 export default router;
