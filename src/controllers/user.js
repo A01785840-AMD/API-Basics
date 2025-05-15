@@ -92,12 +92,17 @@ class UserController {
             }
 
             db.all(`
-                SELECT items.*
-                FROM items
-                         INNER JOIN usersItem ON items.id = usersItem.item_id
+                SELECT *
+                FROM items as i 
+                         INNER JOIN usersItem ON i.id = usersItem.item_id
                 WHERE usersItem.user_id = ?
             `, [id], (err, items) => {
-                if (err) return res.status(500).json({ message: err.message });
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json({ message: err.message });
+                }
+
+                console.log({...user, items});
                 res.json({ ...user, items });
             });
         });

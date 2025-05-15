@@ -19,9 +19,43 @@ const get_ids = (data, ids) => {
     });
 };
 
-const displayResponse = (response) => {
+/**
+ *
+ * @param {Array<{id: number, name: string, email: string, items: Array}>} users
+ * @returns {string} HTML list item with table of users
+ */
+const userTemplate = (users) => `<li>
+<table>
+  <thead>
+    <tr><th>ID</th><th>Name</th><th>Email</th><th>Item</th></tr>
+  </thead>
+  <tbody>
+    ${users.map(user => `<tr><td>${user.id}</td><td>${user.name}</td><td>${user.email}</td><td>${JSON.stringify(user.items)}</td></tr>`).join('')}
+  </tbody>
+</table>
+</li>`;
+
+
+/**
+ *
+ * @param {Array<{id: number, name: string, type: string, effect: string}>} items
+ * @returns {string} HTML list item with table of items
+ */
+const itemTemplate = (items) => `<li>
+<table>
+  <thead>
+    <tr><th>ID</th><th>Name</th><th>Type</th><th>Effect</th></tr>
+  </thead>
+  <tbody>
+    ${items.map(item => `<tr><td>${item.id}</td><td>${item.name}</td><td>${item.type}</td><td>${item.effect}</td></tr>`).join('')}
+  </tbody>
+</table>
+</li>`;
+
+
+const displayResponse = (response, endpoint) => {
     if (typeof response === 'object') {
-        results.innerHTML = JSON.stringify(response, null, 2);
+        results.innerHTML = (endpoint? (endpoint==='users'? userTemplate(response) : itemTemplate(response)) : JSON.stringify(response, null, 2));
     } else {
         results.innerHTML = response;
     }
@@ -99,21 +133,8 @@ const showDataForm = (method, endpoint) => {
     formContainer.style.display = 'block';
 };
 
-const merge = (id, data) => {
-    const base = {};
-
-    if (typeof id === 'number') {
-        base.id = id;
-    }
-
-    if (data && typeof data === 'object') {
-        Object.assign(base, data);
-    }
-
-    return base;
-};
-
-const updateIdPlaceholder = (selectedEndpoint) => {
+const updateIdPlaceholder = async (selectedEndpoint) => {
+    await updateIds();
     const ids = selectedEndpoint === 'users' ? users_ids : items_ids;
     const methodValue = endpointSelectMethod.value;
     const needsId = ['GET', 'DELETE', 'PATCH'].includes(methodValue);
@@ -188,7 +209,7 @@ async function fetchItems(method, id, data) {
 async function fetchAndUpdate(method, endpoint, id, data) {
     let res = null;
 
-    console.log({id, data})
+    console.log({ id, data })
     try {
         switch (endpoint) {
             case 'users':
@@ -216,7 +237,7 @@ endpointSelectMethod.addEventListener('change', function () {
     const method = this.value;
     const endpoint = endpointSelectUrl.value;
 
-    updateIdPlaceholder(endpoint);
+    updateIdPlaceholder(endpoint).then();
     showDataForm(method, endpoint);
 
     console.log('Selected method:', method);
@@ -226,7 +247,7 @@ endpointSelectUrl.addEventListener('change', function () {
     const method = endpointSelectMethod.value;
     const endpoint = this.value;
 
-    updateIdPlaceholder(endpoint);
+    updateIdPlaceholder(endpoint).then();
     showDataForm(method, endpoint);
 
     console.log('Selected endpoint:', endpoint);
@@ -262,8 +283,19 @@ test_btn.addEventListener('click', async function () {
     }
 
     if ((method === 'GET' || method === 'DELETE' || method === 'PATCH') && !id) {
-        updateResultStatus(false, `Failed: ID is required for ${method}`);
-        displayResponse(`Error: Please provide an ID for ${method} request`);
+        try {
+            const url = endpoint === 'users' ? 'http://localhost:3000/users' : 'http://localhost:3000/items';
+            const template = endpoint === 'users' ? userTemplate : itemTemplate;
+            const res = await fetch(url).then(res => res.json()).then(data => {
+                return template(data);
+            });
+
+            displayResponse(res, endpoint);
+            updateResultStatus(true, "Successful");
+            console.log("Fetch all");
+        } catch (error) {
+            console.log("IDK: " + error);
+        }
         return;
     }
 
@@ -288,8 +320,12 @@ test_btn.addEventListener('click', async function () {
 
 // INIT //
 
-showDataForm(endpointSelectMethod.value, endpointSelectUrl.value);
-updateIdPlaceholder(endpointSelectUrl.value);
-displayResponse("Select endpoint and click TEST");
-updateResultStatus(false, "No test run yet");
-updateIds();
+function main() {
+    showDataForm(endpointSelectMethod.value, endpointSelectUrl.value);
+    displayResponse("Select endpoint and click TEST");
+    updateResultStatus(false, "No test run yet");
+    updateIdPlaceholder(endpointSelectUrl.value);
+    updateIds();
+}
+
+main();
