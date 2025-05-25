@@ -149,7 +149,9 @@ async function fetchUsers(method, data) {
 async function fetchItems(method, data) {
     let res = null;
     switch (method) {
-
+        case 'POST':
+            res = await test_postItems(data);
+            break;
     }
 
     return res;
@@ -167,6 +169,7 @@ async function fetchAndUpdate(method, endpoint, data) {
                 res = await fetchItems(method, data);
                 break;
         }
+
         updateResultStatus(res !== null, "Successful");
     } catch (error) {
         console.error('fetchAndUpdate error:', error);
@@ -257,4 +260,4 @@ showDataForm(endpointSelectMethod.value, endpointSelectUrl.value);
 updateIdPlaceholder(endpointSelectUrl.value);
 displayResponse("Select endpoint and click TEST");
 updateResultStatus(false, "No test run yet");
-updateIds();
+// updateIds();
